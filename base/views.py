@@ -54,30 +54,50 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
 
+
+def is_valid_password(password):
+    """Check if password meets complexity requirements."""
+    return (
+        len(password) >= 8 and
+        re.search(r'[A-Z]', password) and    # At least one uppercase letter
+        re.search(r'[a-z]', password) and    # At least one lowercase letter
+        re.search(r'\d', password) and       # At least one number
+        re.search(r'[!@#$%^&*(),.?":{}|<>]', password)  # At least one special character
+    )
+
 def SignupPage(request):
-    if request.method == 'POST':
-        uname = request.POST.get('username')
-        email = request.POST.get('email')
-        pass1 = request.POST.get('password1')
-        pass2 = request.POST.get('password2')
+    if request.method == "POST":
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        password1 = request.POST.get("password1")
+        password2 = request.POST.get("password2")
 
-        # Check if passwords match
-        if pass1 != pass2:
+        has_errors = False  # Track errors
+
+        if password1 != password2:
             messages.error(request, "Passwords do not match!")
-            return render(request, 'signup.html')
+            has_errors = True
 
-        # Check if username already exists
-        if User.objects.filter(username=uname).exists():
-            messages.error(request, "Username already taken! Please choose another.")
-            return render(request, 'signup.html')
+        if not is_valid_password(password1):
+            messages.error(request, "Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character.")
+            has_errors = True
 
-        # Create new user
-        my_user = User.objects.create_user(uname, email, pass1)
-        my_user.save()
-        messages.success(request, "Account created successfully! Please log in.")
-        return redirect('login')
 
-    return render(request, 'signup.html')
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Username already taken!")
+            has_errors = True
+
+        if User.objects.filter(email=email).exists():
+            messages.error(request, "Email already registered!")
+            has_errors = True
+
+        if not has_errors:  # Proceed only if no errors
+            User.objects.create_user(username=username, email=email, password=password1)
+            messages.success(request, "Signup successful! Please log in.")
+            return redirect("login")
+
+    return render(request, "signup.html")
+
 
 
 

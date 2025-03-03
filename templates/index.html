@@ -46,17 +46,9 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: calc(100vh - 56px); /* Adjusted for the height of the navbar */
+      min-height: calc(100vh - 56px);
     }
-    .btn-custom {
-      background-color: #e74c3c;
-      border-color: #e74c3c;
-    }
-    .btn-custom:hover {
-      background-color: #c0392b;
-      border-color: #c0392b;
-    }
-    label{
+    label {
       color: black;
       font-weight: bolder;
     }
@@ -82,74 +74,157 @@
   </nav>
   <div class="center-div">
     <div class="container">
-      <h1>CROP YEILD PREDICTION</h1><br>
+      <h1>CROP YIELD PREDICTION</h1><br>
       <div class="row justify-content-md-center">
         <div class="col-md-8 form-container">
-          <form action="result">
+          <form id="predictionForm" action="result" method="GET">
             {% csrf_token %}
-            <div class="form-group row">
-              <label for="Crop" class="col-sm-2 col-form-label form-label">Crop:</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="Crop" placeholder="Crop" name="Crop" required>
-              </div>
+            <div class="form-group">
+              <label for="Crop">Crop:</label>
+              <select class="form-control" id="Crop" name="Crop" required>
+                <option value="">Select a Crop</option>
+                <option value="Arecanut">Arecanut</option>
+                <option value="Arhar/Tur">Arhar/Tur</option>
+                <option value="Bajra">Bajra</option>
+                <option value="Banana">Banana</option>
+                <option value="Barley">Barley</option>
+                <option value="Black pepper">Black pepper</option>
+                <option value="Cardamom">Cardamom</option>
+                <option value="Cashewnut">Cashewnut</option>
+                <option value="Castor seed">Castor seed</option>
+                <option value="Coconut">Coconut</option>
+                <option value="Coriander">Coriander</option>
+                <option value="Cotton(lint)">Cotton (lint)</option>
+                <option value="Dry chillies">Dry chillies</option>
+                <option value="Garlic">Garlic</option>
+                <option value="Ginger">Ginger</option>
+                <option value="Gram">Gram</option>
+                <option value="Groundnut">Groundnut</option>
+                <option value="Horse-gram">Horse-gram</option>
+                <option value="Jowar">Jowar</option>
+                <option value="Jute">Jute</option>
+                <option value="Khesari">Khesari</option>
+                <option value="Linseed">Linseed</option>
+                <option value="Maize">Maize</option>
+                <option value="Masoor">Masoor</option>
+                <option value="Mesta">Mesta</option>
+                <option value="Moong(Green Gram)">Moong (Green Gram)</option>
+                <option value="Niger seed">Niger seed</option>
+                <option value="Onion">Onion</option>
+                <option value="Other Rabi pulses">Other Rabi pulses</option>
+                <option value="Other Cereals">Other Cereals</option>
+                <option value="Other Kharif pulses">Other Kharif pulses</option>
+                <option value="other oilseeds">Other oilseeds</option>
+                <option value="Peas & beans (Pulses)">Peas & beans (Pulses)</option>
+                <option value="Potato">Potato</option>
+                <option value="Ragi">Ragi</option>
+                <option value="Rapeseed &Mustard">Rapeseed & Mustard</option>
+                <option value="Rice">Rice</option>
+                <option value="Safflower">Safflower</option>
+                <option value="Sannhamp">Sannhamp</option>
+                <option value="Sesamum">Sesamum</option>
+                <option value="Small millets">Small millets</option>
+                <option value="Soyabean">Soyabean</option>
+                <option value="Sugarcane">Sugarcane</option>
+                <option value="Sunflower">Sunflower</option>
+                <option value="Sweet potato">Sweet potato</option>
+                <option value="Tapioca">Tapioca</option>
+                <option value="Tobacco">Tobacco</option>
+                <option value="Turmeric">Turmeric</option>
+                <option value="Urad">Urad</option>
+                <option value="Wheat">Wheat</option>
+              </select>
             </div>
-            <div class="form-group row">
-              <label for="Crop_Year" class="col-sm-2 col-form-label form-label">Crop_Year:</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="Crop_Year" placeholder="Crop_Year" name="Crop_Year" required>
-              </div>
+            <div class="form-group">
+              <label for="Crop_Year">Crop Year:</label>
+              <input type="text" class="form-control" id="Crop_Year" name="Crop_Year" required>
             </div>
-            <div class="form-group row">
-              <label for="Season" class="col-sm-2 col-form-label form-label">Season:</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="Season" placeholder="Season" name="Season" required>
-              </div>
+            <div class="form-group">
+              <label for="Season">Season:</label>
+              <select class="form-control" id="Season" name="Season" required>
+                <option value="">Select Season</option>
+                <option value="Autumn">Autumn</option>
+                <option value="Kharif">Kharif</option>
+                <option value="Rabi">Rabi</option>
+                <option value="Summer">Summer</option>
+                <option value="Whole Year">Whole Year</option>
+                <option value="Winter">Winter</option>
+              </select>
             </div>
-            <div class="form-group row">
-              <label for="State" class="col-sm-2 col-form-label form-label">State:</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="State" placeholder="State" name="State" required>
-              </div>
+            <div class="form-group">
+              <label for="State">State:</label>
+              <select class="form-control" id="State" name="State" required>
+                <option value="">Select State</option>
+                <option value="Andhra Pradesh">Andhra Pradesh</option>
+<option value="Assam">Assam</option>
+<option value="Goa">Goa</option>
+<option value="Karnataka">Karnataka</option>
+<option value="Kerala">Kerala</option>
+<option value="Meghalaya">Meghalaya</option>
+<option value="Puducherry">Puducherry</option>
+<option value="Tamil Nadu">Tamil Nadu</option>
+<option value="West Bengal">West Bengal</option>
+              </select>
             </div>
-            <div class="form-group row">
-              <label for="Area" class="col-sm-2 col-form-label form-label">Area:</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="Area" placeholder="Area" name="Area" required>
-              </div>
+            <div class="form-group">
+              <label for="Area">Area:</label>
+              <input type="text" class="form-control" id="Area" name="Area" required>
             </div>
-            <div class="form-group row">
-              <label for="Production" class="col-sm-2 col-form-label form-label">Production:</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="Production" placeholder="Production in Kg" name="Production" required>
-              </div>
+            <div class="form-group">
+              <label for="Production">Production (Kg):</label>
+              <input type="text" class="form-control" id="Production" name="Production" required>
             </div>
-            <div class="form-group row">
-              <label for="Annual_Rainfall" class="col-sm-2 col-form-label form-label">Annual_Rainfall:</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="Annual_Rainfall" placeholder="Annual_Rainfall in cm" name="Annual_Rainfall" required>
-              </div>
+            <div class="form-group">
+              <label for="Annual_Rainfall">Annual Rainfall (cm):</label>
+              <input type="text" class="form-control" id="Annual_Rainfall" name="Annual_Rainfall" required>
             </div>
-            <div class="form-group row">
-              <label for="Fertilizer" class="col-sm-2 col-form-label form-label">Fertilizer:</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="Fertilizer" placeholder="Fertilizer in grams" name="Fertilizer" required>
-              </div>
+            <div class="form-group">
+              <label for="Fertilizer">Fertilizer (grams):</label>
+              <input type="text" class="form-control" id="Fertilizer" name="Fertilizer" required>
             </div>
-            <div class="form-group row">
-              <label for="Pesticide" class="col-sm-2 col-form-label form-label">Pesticide:</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="Pesticide" placeholder="Pesticide in grams" name="Pesticide" required>
-              </div>
+            <div class="form-group">
+              <label for="Pesticide">Pesticide (grams):</label>
+              <input type="text" class="form-control" id="Pesticide" name="Pesticide" required>
             </div>
-         
-          <div class="form-group row">
-            <div class="col-sm-12">
-              <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
-            </div>
-          </div>
-        </form>
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
+  <script>
+    document.getElementById("predictionForm").addEventListener("submit", function(event) {
+      let cropYear = document.getElementById("Crop_Year").value;
+      let area = document.getElementById("Area").value;
+      let production = document.getElementById("Production").value;
+      let annualRainfall = document.getElementById("Annual_Rainfall").value;
+      let fertilizer = document.getElementById("Fertilizer").value;
+      let pesticide = document.getElementById("Pesticide").value;
+
+      function isValidFloat(value) {
+        return !isNaN(value) && parseFloat(value) > 0;
+      }
+
+      if (isNaN(cropYear) || parseInt(cropYear) < 2025) {
+        alert("Crop Year must be 2025 or later!");
+        event.preventDefault();
+      } else if (!isValidFloat(area)) {
+        alert("Area must be a positive number!");
+        event.preventDefault();
+      } else if (!isValidFloat(production)) {
+        alert("Production must be a positive number!");
+        event.preventDefault();
+      } else if (!isValidFloat(annualRainfall)) {
+        alert("Annual Rainfall must be a positive number!");
+        event.preventDefault();
+      } else if (!isValidFloat(fertilizer)) {
+        alert("Fertilizer must be a positive number!");
+        event.preventDefault();
+      } else if (!isValidFloat(pesticide)) {
+        alert("Pesticide must be a positive number!");
+        event.preventDefault();
+      }
+    });
+  </script>
 </body>
 </html>
